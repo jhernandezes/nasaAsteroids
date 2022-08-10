@@ -1,11 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="property"
+            name="asteroid"
             type="com.udacity.asteroidradar.domain.Asteroid" />
     </data>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/asteroid_name"
+            android:layout_width="302dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="34dp"
+            android:text="@{asteroid.codename}" />
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="332dp"
+            android:layout_height="17dp"
+            android:layout_alignEnd="@+id/asteroid_name"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="10dp"
+            android:text="@{asteroid.closeApproachDate}" />
+
+        <ImageView
+            android:id="@+id/hazardous_image"
+            android:layout_width="45dp"
+            android:layout_height="32dp"
+            android:layout_alignBottom="@+id/date_text"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="-22dp"
+            app:srcCompat="@drawable/ic_status_potentially_hazardous"
+            app:statusIcon="@{asteroid.potentiallyHazardous}" />
+    </RelativeLayout>
 </layout>

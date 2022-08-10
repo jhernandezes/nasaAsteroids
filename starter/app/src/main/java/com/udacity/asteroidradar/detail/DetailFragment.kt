@@ -7,22 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.udacity.asteroidradar.Overview.OverviewViewModel
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+
+    private val viewModel : DetailViewModelFragment by lazy { ViewModelProvider(this).get(DetailViewModelFragment::class.java) }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentDetailBinding.inflate(inflater)
+
         binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
-//        val asteroid = DetailFragmentArgs.fromBundle(requireArguments()).selectedAsteroid
-//
-//        binding.asteroid = asteroid
+        val asteroid = DetailFragmentArgs.fromBundle(!!requireArguments()).selectedAsteroid
 
-        binding.helpButton.setOnClickListener {
-            displayAstronomicalUnitExplanationDialog()
-        }
+        binding.asteroid = asteroid
+
 
         return binding.root
     }

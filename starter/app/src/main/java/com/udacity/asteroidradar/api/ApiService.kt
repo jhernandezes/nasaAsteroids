@@ -1,17 +1,19 @@
 package com.udacity.asteroidradar.api
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.udacity.asteroidradar.domain.Asteroid
+import com.udacity.asteroidradar.domain.PictureOfDay
 import com.udacity.asteroidradar.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 
     private const val BASE_URL = Constants.BASE_URL
-    enum class ApiFilter(val value: String) { SHOW_RENT("rent"), SHOW_BUY("buy"), SHOW_ALL("all") }
 
     /**
      * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
@@ -26,19 +28,23 @@ import retrofit2.http.Query
      * object.
      */
     private val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
         .baseUrl(BASE_URL)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
-    /**
-     * A public interface that exposes the [getProperties] method
-     */
+
     interface ApiService {
-        /**
-         * Returns a Coroutine [List] of [MarsProperty] which can be fetched with await() if in a Coroutine scope.
-         * The @GET annotation indicates that the "realestate" endpoint will be requested with the GET
-         * HTTP method
-         */
-        @GET("realestate")
-        suspend fun getProperties(@Query("filter") type: String): List<Asteroid>
+        @GET("neo/rest/v1/feed")
+        suspend fun getProperties(@Query("api_key") api_key: String): String
+
+        @GET("planetary/apod")
+        suspend fun getPictureOfTheDay(@Query("api_key") api_key: String) : PictureOfDay
     }
+
+object Api {
+    val retrofitService: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
+    }
+}

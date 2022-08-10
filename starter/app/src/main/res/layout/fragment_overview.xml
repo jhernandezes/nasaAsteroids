@@ -11,7 +11,6 @@
         <variable
             name="selectedAsteroid"
             type="com.udacity.asteroidradar.domain.Asteroid" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +32,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                app:pictureUrl="@{viewModel.pictureOfTheDay.url}"
                 app:srcCompat="@drawable/placeholder_picture_of_day"/>
 
             <TextView
@@ -62,7 +62,7 @@
             app:listData = "@{viewModel.properties}"
             app:spanCount="2"
             tools:itemCount="16"
-            tools:listitem="@layout/asteroid_view_item"
+            tools:listItem="@layout/asteroid_view_item"
             />
         <ImageView
             android:id="@+id/status_image"
