@@ -17,16 +17,12 @@
 
 package com.example.android.devbyteviewer.database
 
-import androidx.lifecycle.Transformations.map
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.squareup.moshi.JsonClass
-import com.udacity.asteroidradar.database.NetworkAsteroidContainer
 import com.udacity.asteroidradar.domain.Asteroid
 
 
-
-@Entity
+@Entity(tableName = "databaseasteroids")
 data class DatabaseAsteroid constructor(
         @PrimaryKey
         val id: String,

@@ -22,10 +22,7 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val asteroid = DetailFragmentArgs.fromBundle(!!requireArguments()).selectedAsteroid
-
-        binding.asteroid = asteroid
-
+//        val asteroid = DetailFragmentArgs.fromBundle(arguments!!).selectedAsteroid
 
         return binding.root
     }

@@ -26,7 +26,10 @@ class OverviewFragment : Fragment() {
         // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.setLifecycleOwner(viewLifecycleOwner)
 
+        setHasOptionsMenu(true)
+
         binding.viewModel = viewModel
+
 
         return binding.root
     }

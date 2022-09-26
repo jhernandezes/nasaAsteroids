@@ -3,7 +3,6 @@ package com.udacity.asteroidradar.api
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.udacity.asteroidradar.domain.Asteroid
 import com.udacity.asteroidradar.domain.PictureOfDay
 import com.udacity.asteroidradar.utils.Constants
 import retrofit2.Retrofit
@@ -11,9 +10,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.time.LocalDate
 
 
-    private const val BASE_URL = Constants.BASE_URL
+private const val BASE_URL = Constants.BASE_URL
 
     /**
      * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
@@ -37,7 +37,9 @@ import retrofit2.http.Query
 
     interface ApiService {
         @GET("neo/rest/v1/feed")
-        suspend fun getProperties(@Query("api_key") api_key: String): String
+        suspend fun getProperties(@Query("start_date") startDate:String= LocalDate.now().toString(),
+                                  @Query("end_date") endDate:String = LocalDate.now().plusDays(7).toString(),
+                                  @Query("api_key") api_key: String): String
 
         @GET("planetary/apod")
         suspend fun getPictureOfTheDay(@Query("api_key") api_key: String) : PictureOfDay

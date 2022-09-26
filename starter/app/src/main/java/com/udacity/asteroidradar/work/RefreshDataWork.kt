@@ -23,6 +23,7 @@ import androidx.work.ListenableWorker.Result.success
 import androidx.work.WorkerParameters
 import com.example.android.devbyteviewer.database.AsteroidsDatabase
 import com.example.android.devbyteviewer.database.getDatabase
+import com.example.android.devbyteviewer.repository.AsteroidsRepository
 import retrofit2.HttpException
 
 class RefreshDataWorker(appContext: Context, params: WorkerParameters):
@@ -40,9 +41,10 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
      */
     override suspend fun doWork(): Result {
         val database = getDatabase(applicationContext)
-        val repository = AsteroidsDatabase(database)
+        val repository = AsteroidsRepository(database)
         return try {
-            repository.Result.success()
+            repository.refreshAsteroids()
+            success()
         } catch (e: HttpException) {
             Result.retry()
         }

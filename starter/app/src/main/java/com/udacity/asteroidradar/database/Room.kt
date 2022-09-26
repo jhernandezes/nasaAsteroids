@@ -20,7 +20,6 @@ package com.example.android.devbyteviewer.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.udacity.asteroidradar.domain.Asteroid
 
 @Dao
 interface AsteroidDao {
